@@ -26,7 +26,19 @@ public class Alumno {
 	}
 
 	public double calcularNotaActividad(String nombreActividad) {
-		throw new UnsupportedOperationException();
+		ArrayList<Ejercicio> ejerciciosAct = new ArrayList<Ejercicio>();
+		Actividad act = new Actividad();
+		for(Actividad a: actividadesAsignadas) {
+			if(a.getNombre().equals(nombreActividad)) {
+				act = a;
+				ejerciciosAct = a.getEjercicios();
+			}
+		}
+		double punt = 0;
+		for(Ejercicio e: ejerciciosAct) {
+			punt = punt + e.getPuntuacion();
+		}
+		act.setPuntuacionTotal(punt);
+		return punt;
 	}
-
 }
