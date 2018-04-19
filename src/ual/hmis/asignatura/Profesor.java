@@ -24,4 +24,8 @@ public class Profesor {
 			}      
 		}
 	}
+	
+	public void setAlumnos(ArrayList<Alumno> a) {
+		alumnosDePracticas = a;
+	}
 }

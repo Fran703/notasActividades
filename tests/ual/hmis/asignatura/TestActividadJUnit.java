@@ -9,10 +9,6 @@ import ual.hmis.asignatura.*;
 
 public class TestActividadJUnit {
 	
-	private Actividad act = new Actividad();
-	private Alumno alu = new Alumno();
-	
-	@SuppressWarnings("deprecation")
 	@Test
 	public void testNotasActividad(){
 		
@@ -83,9 +79,96 @@ public class TestActividadJUnit {
 		double puntuacionAc2 = pepe.calcularNotaActividad("Actividad 2");
 		double puntuacionAc3 = pepe.calcularNotaActividad("Actividad 3");
 		double puntuacionAc4 = pepe.calcularNotaActividad("Actividad 4");
-		assertEquals(puntuacionAc1, 19.5);
-		assertEquals(puntuacionAc2, 19.75);
-		assertEquals(puntuacionAc3, 16.25);
-		assertEquals(puntuacionAc4, 13);
+		assertEquals(puntuacionAc1, 19.5, 0.0);
+		assertEquals(puntuacionAc2, 19.75, 0.0);
+		assertEquals(puntuacionAc3, 18.25, 0.0);
+		assertEquals(puntuacionAc4, 13.0, 0.0);
+	}
+	
+	@Test
+	public void testActividad(){
+		
+		Actividad ac1 = new Actividad();
+		Ejercicio ej1 = new Ejercicio();
+		Ejercicio ej2 = new Ejercicio();
+		ArrayList<Ejercicio> e = new ArrayList<Ejercicio>();
+		e.add(ej1);
+		e.add(ej2);
+		ac1.setEjercicios(e);
+		ac1.setApta(true);
+		boolean esApta = ac1.isApta();
+		ac1.setPuntuacionTotal(100.5);
+		double punt = ac1.getPuntuacionTotal();
+		ac1.agregarEjercicioCalificado("Matrices", 7.5);
+		String nombre = ac1.getEjercicios().get(2).getNombre();
+		double puntEje = ac1.getEjercicios().get(2).getPuntuacion();
+		
+		assertEquals(esApta, true);
+		assertEquals(punt, 100.5, 0.0);
+		assertEquals(nombre, "Matrices");
+		assertEquals(puntEje, 7.5, 0.0);
+	}
+	
+	@Test
+	public void testAlumno(){
+		
+		Alumno pepe = new Alumno();
+		pepe.setNombre("Pepe");
+		String nombre = pepe.getNombre();
+		Actividad ac1 = new Actividad();
+		Actividad ac2 = new Actividad();
+		ArrayList<Actividad> actividadesAsignadas = new ArrayList<Actividad>();
+		actividadesAsignadas.add(ac1);
+		actividadesAsignadas.add(ac2);
+		pepe.setActividadesAsignadas(actividadesAsignadas);
+		ArrayList<Actividad> actividadesAsignadas2 = new ArrayList<Actividad>();
+		actividadesAsignadas2 = pepe.getActividadesAsignadas();
+		
+		assertEquals(nombre, "Pepe");
+	}
+	
+	@Test
+	public void testProfesor(){
+		
+		Profesor pr = new Profesor();
+		Ejercicio ej1 = new Ejercicio();
+		Ejercicio ej2 = new Ejercicio();
+		Actividad ac1 = new Actividad();
+		ac1.setNombre("ac1");
+		Actividad ac2 = new Actividad();
+		ac2.setNombre("ac2");
+		ArrayList<Ejercicio> ejercicios = new ArrayList<Ejercicio>();
+		ejercicios.add(ej1);
+		ejercicios.add(ej2);
+		ac1.setEjercicios(ejercicios);
+		ac2.setEjercicios(ejercicios);
+		ArrayList<Actividad> actividades = new ArrayList<Actividad>();
+		actividades.add(ac1);
+		actividades.add(ac2);
+		ArrayList<Alumno> alumnos = new ArrayList<Alumno>();
+		Alumno Fran = new Alumno();
+		Fran.setActividadesAsignadas(actividades);
+		for(Actividad a: Fran.getActividadesAsignadas()) {
+			for(Ejercicio e: a.getEjercicios()) {
+				e.setPuntuacion(5);
+			}
+		}		
+		alumnos.add(Fran);
+		pr.setAlumnos(alumnos);
+		pr.calificarAlumnos();
+
+		for(Actividad a: Fran.getActividadesAsignadas()) {
+			assertEquals(a.isApta(), true);
+		}
+		
+		for(Actividad a: Fran.getActividadesAsignadas()) {
+			for(Ejercicio e: a.getEjercicios()) {
+				e.setPuntuacion(0);
+			}
+		}
+		pr.calificarAlumnos();
+		for(Actividad a: Fran.getActividadesAsignadas()) {
+			assertEquals(a.isApta(), false);
+		}
 	}
 }
