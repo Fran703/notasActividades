@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import ual.hmis.asignatura.*;
 
-public class TestActividadJUnit {
+public class ActividadTest {
 	
 	@Test
 	public void testNotasActividad(){
