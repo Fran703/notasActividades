@@ -11,17 +11,7 @@
     <sourceDirectory>src</sourceDirectory>
     <testSourceDirectory>tests</testSourceDirectory>
     <plugins>
-      <plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-surefire-plugin</artifactId>
-		<version>2.21.0</version>
-		<configuration>
-			<includes>
-				<include>Sample.java</include>
-			</includes>
-		</configuration>
-	  </plugin>
-	  <plugin>
+    <plugin>
 		<groupId>org.codehaus.mojo</groupId>
 		<artifactId>cobertura-maven-plugin</artifactId>
 		<configuration>
@@ -31,14 +21,18 @@
 			</formats>
 		</configuration>
 	   </plugin>
+    <plugin>
+    	<groupId>org.apache.maven.plugins</groupId>
+    	<artifactId>maven-surefire-plugin</artifactId>
+    	<version>2.21.0</version>
+    </plugin>
     </plugins>
   </build>
   <dependencies>
-	<dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.12</version>
-		<scope>test</scope>
-	</dependency>
+  <dependency>
+  	<groupId>junit</groupId>
+  	<artifactId>junit</artifactId>
+  	<version>4.12</version>
+  </dependency>
   </dependencies>
 </project>
